@@ -1,6 +1,7 @@
 <div>
+    <!-- Validar se esta logado -->
+    {{ auth()->id() }} 
     <h1>Registrar</h1>
-
     @if($message = session()->get('message'))
     <div>{{$message}}</div>
     @endif

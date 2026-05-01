@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Validation\Rules\Password;
 
 class makeRegisterRequest extends FormRequest
 {
@@ -34,26 +35,36 @@ class makeRegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'email' => ['required', 'email', 'confirmed', 'unique:user'],
-            'password' => ['required'],
+            'email' => ['required', 'email', 'confirmed', 'unique:users'],
+            'password' => [
+                'required',
+                Password::min(8)
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised()
+            ]
 
         ];
     }
 
-    public function trytoRegister(){
+    public function trytoRegister()
+    {
 
+        /* 
         $user = new User();
         $user->name = $this->name;
         $user->password = $this->password;
         $user->email = $this->email;
-        $user->save();
+        $user->save(); */
 
+        //Realiza todo o processo acima e já valida em poucas linhas 
+        $user = User::query()->create($this->validated());
+
+        //Logar com o usuário criado 
         auth()->login($user);
 
         return true;
-
-
     }
-    
-
 }
