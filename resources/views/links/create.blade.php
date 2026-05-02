@@ -20,6 +20,7 @@
             <input  name="name" id="" placeholder="name">
         </div>
         <button>Salvar</button>
+        <a href="{{ route('dashboard') }}">Cancelar</a>
     </form>
 
 

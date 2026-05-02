@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\link;
+use App\Models\Link;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<link>
+ * @extends Factory<Link>
  */
 class LinkFactory extends Factory
 {

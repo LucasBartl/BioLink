@@ -67,7 +67,7 @@ class LinkController extends Controller
         Utilizando fill ele vai atualizar com tudo que existe dentro de $request->validated()
         */
         $link->fill($request->validated())->save();
-        
+
         return to_route('dashboard')
             ->with('message', 'alterado com sucesso!');
     }
@@ -77,6 +77,46 @@ class LinkController extends Controller
      */
     public function destroy(link $link)
     {
-        //
+        $link->delete();
+        return to_route('dashboard')->with('message', 'deletado com sucesso !');
+    }
+
+    public function up(Link $link)
+    {
+        //Variavel de usuário recebendo usuário da sessão
+        /* 
+        @var User $user 
+        */
+        $user = auth()->user();
+
+        /* Estamos criando uma forma de fazer com que mude a posição do link dentro de dashboard */
+        $order = $link->sort;
+        $newOrder = $order - 1;
+
+        $swapWith = $user->links()->where('sort', '=', $newOrder)->first();
+
+        $link->fill(['sort' => $newOrder])->save();
+        $swapWith->fill(['sort' => $order])->save();
+
+        return back();
+    }
+    public function down(Link $link)
+    {
+        //Variavel de usuário recebendo usuário da sessão
+        /* 
+        @var User $user 
+        */
+        $user = auth()->user();
+
+        /* Estamos criando uma forma de fazer com que mude a posição do link dentro de dashboard */
+        $order = $link->sort;
+        $newOrder = $order + 1;
+
+        $swapWith = $user->links()->where('sort', '=', $newOrder)->first();
+
+        $link->fill(['sort' => $newOrder])->save();
+        $swapWith->fill(['sort' => $order])->save();
+
+        return back();
     }
 }
