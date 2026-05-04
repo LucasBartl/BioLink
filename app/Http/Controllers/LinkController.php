@@ -39,13 +39,16 @@ class LinkController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Link $link)
-    {
-        /* Obs:
+    /* Obs:
         Colocando nos paramentros (Link $link), já informamos que se trata de uma varivel do tipo do model
         O que nos evita ter que realizar isso :
         $link = Link::query()->findOrFail($link);
-        */
+    */
+    public function edit(Link $link)
+    {
+        /* @var User user */
+        $user = auth()->user();
+
 
         return view('links.edit', ['link' => $link]);
     }
@@ -55,17 +58,7 @@ class LinkController extends Controller
      */
     public function update(UpdatelinkRequest $request, link $link)
     {
-        //salva novo link e nome enviados da requisição. Nesse jeito de fazer somente mudamos essas informçoes
-        /* 
-            $link->link = $request->link; 
-            $link->name = $request->name;
-            $link->save();
-        */
-
-        /*
-        Segundo jeito
-        Utilizando fill ele vai atualizar com tudo que existe dentro de $request->validated()
-        */
+        /*Utilizando fill ele vai atualizar com tudo que existe dentro de $request->validated()*/
         $link->fill($request->validated())->save();
 
         return to_route('dashboard')
@@ -92,5 +85,4 @@ class LinkController extends Controller
 
         return back();
     }
-    
 }
