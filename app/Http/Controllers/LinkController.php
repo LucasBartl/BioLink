@@ -83,40 +83,14 @@ class LinkController extends Controller
 
     public function up(Link $link)
     {
-        //Variavel de usuário recebendo usuário da sessão
-        /* 
-        @var User $user 
-        */
-        $user = auth()->user();
-
-        /* Estamos criando uma forma de fazer com que mude a posição do link dentro de dashboard */
-        $order = $link->sort;
-        $newOrder = $order - 1;
-
-        $swapWith = $user->links()->where('sort', '=', $newOrder)->first();
-
-        $link->fill(['sort' => $newOrder])->save();
-        $swapWith->fill(['sort' => $order])->save();
-
+        $link->moveUp();
         return back();
     }
     public function down(Link $link)
     {
-        //Variavel de usuário recebendo usuário da sessão
-        /* 
-        @var User $user 
-        */
-        $user = auth()->user();
-
-        /* Estamos criando uma forma de fazer com que mude a posição do link dentro de dashboard */
-        $order = $link->sort;
-        $newOrder = $order + 1;
-
-        $swapWith = $user->links()->where('sort', '=', $newOrder)->first();
-
-        $link->fill(['sort' => $newOrder])->save();
-        $swapWith->fill(['sort' => $order])->save();
+        $link->moveDown();
 
         return back();
     }
+    
 }
