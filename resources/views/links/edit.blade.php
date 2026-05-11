@@ -1,31 +1,14 @@
 <x-layout.app>
-    <div>
-        <!-- Validar se esta logado -->
-        <h1>Editar um link : {{$link->id}} </h1>
-        @if($message = session()->get('message'))
-        <div>{{$message}}</div>
-        @endif
-
-        <form action="{{route('links.edit', $link)}}" method="post">
-            <!-- Faz com que somente post da nossa aplicação seja enviado -->
-            @csrf
-            @method('put')
-
-            <div>
-                <input name="link" id="" placeholder="link" value="{{ old('link', $link->link) }}">
-                @error('link')
-                <span>{{ $message }}</span>
-                @enderror
-            </div>
-            <br>
-            <div>
-                <input name="name" id="" placeholder="name">
-            </div>
-            <button>Salvar</button>
-            <a href="{{ route('dashboard') }}">Cancelar</a>
-        </form>
-
-
-
-    </div>
+    <x-container>
+        <x-card title="Editing link :: ID {{$link->id}}">
+            <x-form :route="route('links.edit', $link)" put id="edit-form">
+                <x-input name="link" type="text" placeholder="link" value="{{ old('link',$link->link) }}" />
+                <x-input name="name" type="text" placeholder="Name" value="{{ old('link',$link->name) }}" />
+            </x-form>
+            <x-slot:actions>
+                <x-a :href="route('dashboard')">Return dashboard</x-a>
+                <x-button type="submit" form="edit-form">Update link</x-button>
+                </x-slot>
+        </x-card>
+    </x-container>
 </x-layout.app>

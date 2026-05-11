@@ -1,48 +1,26 @@
 <x-layout.app>
-    <div>
-        <h1>Profile</h1>
-
-        @if($message = session('message'))
-        <div>{{$message}}</div>
-        @endif
-
-
-        <form action="{{route('profile')}}" method="post" enctype="multipart/form-data">
-            <!-- Faz com que somente post da nossa aplicação seja enviado -->
-            @csrf
-            @method('PUT')
-
-            <div>
-                <img src="{{$user->photo}}" alt="Profile Picture">
-                <input type="file" name="photo" />
-            </div>
-            <div>
-                <input name="name" id="" placeholder="Name" value="{{ old('name', $user->name) }}">
-                @error('name')
-                <span>{{ $message }}</span>
-                @enderror
-            </div>
-            <br>
-            <div>
-                <textarea name="description" id="" placeholder="Resumo">{{ old('description', $user->description) }}</textarea>
-                @error('description')
-                <span>{{ $message }}</span>
-                @enderror
-            </div>
-            <br>
-            <div>
-                <input name="handler" id="" placeholder="@seulink" value="{{ old('handler',$user->handler) }}">
-                @error('handler')
-                <span>{{ $message }}</span>
-                @enderror
-            </div>
-            <br>
-
-            <a href="{{ route('dashboard') }}">Cancelar</a>
-            <button>Update</button>
-        </form>
-
-
-
-    </div>
+    <x-container>
+        <x-card title="Profile">
+            <x-form :route="route('profile')" put id="profile-form" enctype="multipart/form-data">
+                
+            <div class="flex gap-2 itens-center justify-center">
+                    <div class="avatar">
+                        <div class="w-24 rounded-xl">
+                            <img src="/storage/{{$user->photo}}" alt="Profile Picture" class="avatar">
+                        </div>
+                    </div>
+                    <x-file-input name="photo" />
+                </div>
+                
+                
+                <x-input name="name" type="text" placeholder="Name" value="{{ old('name', $user->name) }}" />
+                <x-textarea name="description" type="text"  value="{{ old('description', $user->description) }}"/>
+                <x-input name="handler" prefix="biolink.com.br/" type="text" placeholder="Handler" value="{{ old('handler', $user->handler) }}" />
+            </x-form>
+            <x-slot:actions>
+                <x-a :href="route('dashboard')">Return dashboard</x-a>
+                <x-button type="submit" form="profile-form">Update link</x-button>
+                </x-slot>
+        </x-card>
+    </x-container>
 </x-layout.app>
