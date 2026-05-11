@@ -1,43 +1,45 @@
-<div>
-   <h1>Dashboard</h1>
+<x-layout.app>
+   <div>
+      <h1>Dashboard</h1>
 
-   @if($message = session()->get('message'))
-   <div>{{ $message }}</div>
-   @endif
+      @if($message = session()->get('message'))
+      <div>{{ $message }}</div>
+      @endif
 
-   <a href="{{ route('links.create') }}">Criar</a>
+      <a href="{{ route('links.create') }}">Criar</a>
+      <a href="{{ route('profile') }}">Atualizar profile</a>
+      <ul>
+         @foreach ($links as $link)
+         <li style="display: flex;">
 
-   <ul>
-      @foreach ($links as $link)
-      <li style="display: flex;">
-         
-         @unless($loop->last)
-         <form action=" {{ route('links.down',$link) }} " method="post">
-            @csrf
-            @method('PATCH')
+            @unless($loop->last)
+            <form action=" {{ route('links.down',$link) }} " method="post">
+               @csrf
+               @method('PATCH')
 
-            <button>⬇️</button>
-         </form>
-         @endunless
+               <button>⬇️</button>
+            </form>
+            @endunless
 
-         @unless($loop->first)
+            @unless($loop->first)
             <form action=" {{ route('links.up',$link) }} " method="post">
                @csrf
                @method('PATCH')
 
                <button>⬆️</button>
             </form>
-         @endunless
-         <!-- <a href="/links/{{ $link->id }}/edit">{{ $link->name}}</a> -->
-         <!--Aqui utilizamos um metodo de ajuda do proprio framework.-->
-         <a href="{{ route('links.edit', $link) }}">{{ $link->name}}</a>
-         <form action=" {{ route('links.destroy',$link) }} " method="post" onsubmit="return confirm('Tem certeza')">
-            @csrf
-            @method('DELETE')
+            @endunless
+            <!-- <a href="/links/{{ $link->id }}/edit">{{ $link->name}}</a> -->
+            <!--Aqui utilizamos um metodo de ajuda do proprio framework.-->
+            <a href="{{ route('links.edit', $link) }}">{{ $link->name}}</a>
+            <form action=" {{ route('links.destroy',$link) }} " method="post" onsubmit="return confirm('Tem certeza')">
+               @csrf
+               @method('DELETE')
 
-            <button>Deletar</button>
-         </form>
-      </li>
-      @endforeach
-   </ul>
-</div>
+               <button>Deletar</button>
+            </form>
+         </li>
+         @endforeach
+      </ul>
+   </div>
+</x-layout.app>

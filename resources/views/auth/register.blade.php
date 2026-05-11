@@ -1,44 +1,18 @@
-<div>
-    <!-- Validar se esta logado -->
-    {{ auth()->id() }} 
-    <h1>Registrar</h1>
-    @if($message = session()->get('message'))
-    <div>{{$message}}</div>
-    @endif
-
-    <form action="{{route('register')}}" method="post">
-        <!-- Faz com que somente post da nossa aplicação seja enviado -->
-        @csrf
-
-
-        <div>
-            <input type="name" name="name" id="" placeholder="name">
-            @error('name')
-            <span>{{ $message }}</span>
-            @enderror
-        </div>
-        <br>
-        <div>
-            <input type="email" name="email" id="" placeholder="email" value="{{ old('email') }}">
-            @error('email')
-            <span>{{ $message }}</span>
-            @enderror
-        </div>
-        <br>
-        <div>
-            <input type="email" name="email_confirmation" id="" placeholder="email confirmation">
-        </div>
-        <br>
-        <div>
-            <input type="password" name="password" placeholder="senha">
-            @error('password')
-            <span>{{ $message }}</span>
-            @enderror
-        </div>
-        <br>
-        <button>Registrar</button>
-    </form>
+<x-layout.app>
+    <x-container>
+        <x-card title="Register">
+            <x-form :route="route('register')" post id="register-form">
+                <x-input name="name" type="text" placeholder="Name" value="{{ old('name') }}" />
+                <x-input name="email" type="email" placeholder="email" value="{{ old('email') }}" />
+                <x-input name="email_confirmation" type="email" placeholder="email confirmation" value="{{ old('email') }}" />
+                <x-input name="password" type="password" placeholder="password" />
+            </x-form>
+            <x-slot:actions>
+                <x-a :href="route('login')">Alrendy have an account!</x-a>
+                <x-button type="submit" form="register-form">Register</x-button>
+                </x-slot>
+        </x-card>
+    </x-container>
+</x-layout.app>
 
 
-
-</div>
