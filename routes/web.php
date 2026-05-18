@@ -9,9 +9,7 @@ use App\Http\Controllers\LinkController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 /* Criamos um grupo de rotas que não necessitam estar autenticadas (Guests) */
 Route::middleware('guest')->group(function () {
@@ -27,7 +25,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
     /* Rota dashboard */
-    Route::get('/dashboard', DashboardController::class)->name('dashboard');
+    Route::get('/', DashboardController::class)->name('dashboard');
 
     /* Rota de logout */
     Route::get('/logout', LogoutController::class)->name('logout');

@@ -4,15 +4,10 @@
             <x-form :route="route('profile')" put id="profile-form" enctype="multipart/form-data">
                 
             <div class="flex gap-2 itens-center justify-center">
-                    <div class="avatar">
-                        <div class="w-24 rounded-xl">
-                            <img src="/storage/{{$user->photo}}" alt="Profile Picture" class="avatar">
-                        </div>
-                    </div>
+                <x-img src="/storage/{{$user->photo}}" alt="Profile Picture"  />
+                  
                     <x-file-input name="photo" />
                 </div>
-                
-                
                 <x-input name="name" type="text" placeholder="Name" value="{{ old('name', $user->name) }}" />
                 <x-textarea name="description" type="text"  value="{{ old('description', $user->description) }}"/>
                 <x-input name="handler" prefix="biolink.com.br/" type="text" placeholder="Handler" value="{{ old('handler', $user->handler) }}" />

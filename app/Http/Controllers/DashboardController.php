@@ -22,6 +22,7 @@ class DashboardController extends Controller
             Enviando para view nosso array de links 
          */
         return view('dashboard', [
+            'user' => $user,
             'links' => $user->links()
             ->orderBy('sort')
             ->get(),

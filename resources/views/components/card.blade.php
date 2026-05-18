@@ -1,17 +1,21 @@
 <!-- Definindo propriedades ao componente -->
 @props([
-'title',
-'actions'
+'title' => null,
+'actions' => null
 ])
 
 <div class="card  bg-base-100 w-2/3 shadow-xl">
     <div class="card-body">
-        <div class="card-title mb-6">{{$title}}</div>
+        @if($title)
+            <div class="card-title mb-6">{{$title}}</div>
+        @endif
 
-        {{$slot}}
-
-        <div class="card-actions flex itens-center justify-between mt-6">
-            {{$actions}}
-        </div>
+            {{$slot}}
+        
+            @if($actions)
+            <div class="card-actions flex itens-center justify-between mt-6">
+                {{$actions}}
+            </div>
+        @endif
     </div>
 </div>
