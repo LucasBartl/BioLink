@@ -1,16 +1,27 @@
 # 🔗 BioLink
 
-Uma alternativa moderna e self-hosted ao Linktree, construída com **Laravel 13** e **Tailwind CSS**. Centralize todos os seus links em uma única página personalizada.
+Uma alternativa moderna e self-hosted ao Linktree, construída com **Laravel 13** e **Tailwind CSS**. Centralize todos os seus links em uma única página personalizada com visual dark e elegante.
+
+---
+
+## 📸 Preview
+
+> Página de perfil com foto, bio, links ordenáveis e painel de gerenciamento lateral.
+
+![BioLink Preview](./preview.png)
 
 ---
 
 ## ✨ Funcionalidades
 
-- Página de bio link personalizada
-- Interface responsiva com Tailwind CSS
-- Build de assets com Vite
-- Banco de dados com migrations via Laravel
-- Testes automatizados com Pest
+- 👤 Perfil com foto e bio personalizados
+- 🔗 Criação e gerenciamento de links
+- ↕️ Reordenação de links (mover para cima/baixo)
+- 🗑️ Remoção de links
+- 🔐 Sistema de autenticação (login/logout)
+- 🎨 Interface dark mode com Tailwind CSS
+- ⚡ Build de assets com Vite
+- 🧪 Testes automatizados com Pest
 
 ---
 
